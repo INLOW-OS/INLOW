@@ -12,6 +12,10 @@ fi
 
 binutils_repo=https://gitee.com/qvjp/binutils-2.32.git
 gcc_repo=https://gitee.com/qvjp/gcc-9.2.0.git
+if [ "$CONTINUOUS_INTEGRATION" = true ]; then
+    binutils_repo=https://github.com/INLOW-OS/binutils-2.32.git
+    gcc_repo=https://github.com/INLOW-OS/gcc-9.2.0.git
+fi
 
 [ -z "${PREFIX+x}" ] && PREFIX="$HOME/inlow-toolchain"
 [ -z "$SRCDIR" ] && SRCDIR="$HOME/src"
