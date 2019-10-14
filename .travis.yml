@@ -1,0 +1,32 @@
+language: c
+sudo: false
+os: linux
+
+addons:
+  apt:
+    packages:
+    - bison
+    - flex
+    - libgmp-dev
+    - libmpc-dev
+    - libmpfr-dev
+    - texinfo
+    - libisl-dev
+    - grub-pc-bin
+    - xorriso
+
+cache:
+  directories:
+  - $HOME/inlow-toolchain
+
+before_install:
+- unset CC CXX
+- export PATH="$HOME/inlow-toolchain/bin:$PATH"
+
+install: make install-toolchain
+
+script: make
+
+notifications:
+  email:
+    - qvjunping@gmail.com
