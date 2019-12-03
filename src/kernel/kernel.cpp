@@ -22,7 +22,7 @@
  */
 
 /**
- * @file kernel.c
+ * @file kernel.cpp
  * @author 屈俊平 (qvjunping@gmail.com)
  * @date 2019-10-14
  * @version 0.1
@@ -37,6 +37,7 @@
 
 #include <stddef.h> /* size_t */
 #include <stdint.h> /* uint8_t */
+#include <kernel/log.h>
 
 /**
  * @brief 内核入口文件
@@ -64,26 +65,15 @@
  *   LIGHT_BROWN   = E
  *   WHITE         = F
  */
-void inlow_main()
+extern "C" void inlow_main()
 {
-    uint8_t *video = (uint8_t*)0xB8000; /**< VGA文本模式内存首地址 */
-    const char *words = "Zero in your target, and go for it.";
-    const uint16_t init_color = 0x77;   /**< 初始化颜色：灰色 */
-    const uint16_t font_color = 0x79;   /**< 文本颜色：灰底蓝字 */
-
-
-    for (size_t i = 0; i < 25; i++)
-    {
-        for (size_t j =0; j < 80; j++)
-        {
-            video[2 * (80 * i + j)] = ' ';
-            video[2 * (80 * i + j) + 1] = init_color;
-        }
-    }
-
-    for (size_t i = 80 * 10 + 18; i < 80 * 10 + 18 + 35; i++)
-    {
-        video[2 * i] = words[i - 80 * 10 - 18];
-        video[2 * i + 1] = font_color;
-    }
+    Log::initTerminal();
+    Log::printf("Zero in your target, and go for it.\n");
+    Log::printf("I'm INLOW!\n");
+    Log::printf("I'm %d years old!\n", 2);
+    Log::printf("unsigned int max %u\n", 4294967295);
+    Log::printf("unsigned int min %u\n", 0);
+    Log::printf("signed int max %d\n", 2147483647);
+    Log::printf("signed int min %d\n", -2147483647);
+    Log::printf("hex number 0x%x\n", 4294967295);
 }
